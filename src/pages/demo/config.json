@@ -11,9 +11,16 @@
     "children": [
       {
         "type": "widget",
-        "widget": "text",
+        "widget": "list",
         "props": {
-          "value": "{{users[0].name}}"
+          "items": "{{users}}",
+          "render": {
+            "type": "widget",
+            "widget": "text",
+            "props": {
+              "value": "{{item.name}}"
+            }
+          }
         }
       }
     ]

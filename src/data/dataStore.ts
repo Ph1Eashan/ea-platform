@@ -1,13 +1,23 @@
-const store: Record<string, unknown> = Object.create(null);
+type Context = Record<string, unknown>;
+
+const globalStore: Record<string, unknown> = Object.create(null);
+const contextStack: Context[] = [];
 
 export function setData(key: string, value: unknown) {
-  store[key] = value;
+  globalStore[key] = value;
 }
 
-export function getData(key: string): unknown {
-  return store[key];
+export function getAllData(): Record<string, unknown> {
+  return {
+    ...globalStore,
+    ...(contextStack[contextStack.length - 1] ?? {}),
+  };
 }
 
-export function getAllData() {
-  return store;
+export function pushContext(ctx: Context) {
+  contextStack.push(ctx);
+}
+
+export function popContext() {
+  contextStack.pop();
 }
