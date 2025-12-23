@@ -1,7 +1,17 @@
 {
-  "page": {},
+  "page": {
+    "title": "EA Platform – Props Demo"
+  },
   "layout": {
     "type": "stack",
-    "children": []
+    "children": [
+      {
+        "type": "widget",
+        "widget": "text",
+        "props": {
+          "value": "Hello from JSON props 🚀"
+        }
+      }
+    ]
   }
 }
