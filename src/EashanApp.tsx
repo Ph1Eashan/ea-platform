@@ -1,7 +1,5 @@
 import { renderLayout } from "./layout/layoutEngine";
 import { loadPageConfig } from "./core/loadPageConfig";
-
-// Vite supports JSON imports
 import rawConfig from "./pages/demo/config.json";
 
 export function EashanApp() {

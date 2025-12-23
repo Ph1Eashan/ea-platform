@@ -1,14 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { EashanApp } from "./EashanApp";
-import { registerWidget } from "./widgets/widgetRegistry";
-import { TextWidget } from "./widgets/TextWidget";
-
-// explicit registration (engine rule)
-registerWidget("text", TextWidget);
+import { ErrorBoundary } from "./components/ErrorBoundary";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <EashanApp />
+    <ErrorBoundary>
+      <EashanApp />
+    </ErrorBoundary>
   </React.StrictMode>
 );

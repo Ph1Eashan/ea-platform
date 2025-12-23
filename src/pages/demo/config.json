@@ -1,14 +1,7 @@
 {
-  "page": {
-    "title": "EA Platform Demo (JSON)"
-  },
+  "page": {},
   "layout": {
     "type": "stack",
-    "children": [
-      {
-        "type": "widget",
-        "widget": "text"
-      }
-    ]
+    "children": []
   }
 }
