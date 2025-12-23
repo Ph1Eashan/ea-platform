@@ -1,6 +1,10 @@
 {
-  "page": {
-    "title": "EA Platform – Props Demo"
+  "page": { "title": "Users" },
+  "data": {
+    "users": {
+      "type": "get",
+      "url": "https://jsonplaceholder.typicode.com/users"
+    }
   },
   "layout": {
     "type": "stack",
@@ -9,7 +13,7 @@
         "type": "widget",
         "widget": "text",
         "props": {
-          "value": "Hello from JSON props 🚀"
+          "value": "{{users[0].name}}"
         }
       }
     ]

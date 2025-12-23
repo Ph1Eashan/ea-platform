@@ -1,5 +1,6 @@
 import { z } from "zod";
 import type { ReactNode } from "react";
+import { getAllData } from "../data/dataStore";
 
 type WidgetDefinition<Props> = {
   schema: z.ZodType<Props>;
@@ -32,7 +33,14 @@ export function resolveWidget(name: string, rawProps: unknown): ReactNode {
     throw new Error(`Widget "${name}" is not registered`);
   }
 
-  const parsed = widget.schema.safeParse(rawProps ?? {});
+  const boundProps =
+    typeof rawProps === "object" && rawProps !== null
+      ? Object.fromEntries(
+          Object.entries(rawProps).map(([k, v]) => [k, resolveBindings(v)])
+        )
+      : rawProps;
+
+  const parsed = widget.schema.safeParse(boundProps ?? {});
 
   if (!parsed.success) {
     throw new Error(
@@ -45,4 +53,28 @@ export function resolveWidget(name: string, rawProps: unknown): ReactNode {
   }
 
   return widget.render(parsed.data);
+}
+
+function resolveBindings(value: unknown): unknown {
+  if (typeof value !== "string") return value;
+
+  const match = value.match(/^\{\{\s*(.+?)\s*\}\}$/);
+  if (!match) return value;
+
+  const expression = match[1]; // e.g. users[0].name
+  const data = getAllData();
+
+  try {
+    return expression
+      .split(/[.[\]]+/)
+      .filter(Boolean)
+      .reduce((acc: unknown, key) => {
+        if (acc && typeof acc === "object" && key in acc) {
+          return (acc as Record<string, unknown>)[key];
+        }
+        return undefined;
+      }, data);
+  } catch {
+    return undefined;
+  }
 }
