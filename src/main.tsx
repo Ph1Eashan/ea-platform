@@ -1,9 +1,14 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import React from "react";
+import ReactDOM from "react-dom/client";
 import { EashanApp } from "./EashanApp";
+import { registerWidget } from "./widgets/widgetRegistry";
+import { TextWidget } from "./widgets/TextWidget";
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
+// explicit registration (engine rule)
+registerWidget("text", TextWidget);
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
     <EashanApp />
-  </StrictMode>
+  </React.StrictMode>
 );
