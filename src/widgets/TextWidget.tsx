@@ -1,5 +1,5 @@
-import type { WidgetConfig } from "../schema/widget.types";
+import type { TextWidgetProps } from "./widgetSchemas";
 
-export function TextWidget(_props: WidgetConfig) {
-  return <p>EA Platform says hello 👋</p>;
+export function TextWidget(props: TextWidgetProps) {
+  return <p>{props.value}</p>;
 }

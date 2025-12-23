@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 /**
- * Discriminated layout node types
+ * Layout node types
  */
 export type StackLayoutNode = {
   type: "stack";
@@ -11,15 +11,14 @@ export type StackLayoutNode = {
 export type WidgetLayoutNode = {
   type: "widget";
   widget: string;
+  props?: unknown; // ⬅ untrusted until validated by widget
 };
 
 export type LayoutNode = StackLayoutNode | WidgetLayoutNode;
 
 /**
- * Zod schemas
+ * Recursive Zod schema
  */
-
-// We must explicitly annotate recursive schemas
 export const LayoutNodeSchema: z.ZodType<LayoutNode> = z.lazy(() =>
   z.union([
     z.object({
@@ -29,6 +28,7 @@ export const LayoutNodeSchema: z.ZodType<LayoutNode> = z.lazy(() =>
     z.object({
       type: z.literal("widget"),
       widget: z.string().min(1),
+      props: z.unknown().optional(),
     }),
   ])
 );
