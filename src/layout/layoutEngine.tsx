@@ -1,11 +1,8 @@
 import type { ReactNode } from "react";
-import type { LayoutNode } from "../schema/layout.types";
+import type { LayoutNode } from "../schema/layout.schema";
 import { getWidget } from "../widgets/widgetRegistry";
 import { StackLayout } from "./StackLayout";
 
-/**
- * Recursively renders a LayoutNode tree.
- */
 export function renderLayout(node: LayoutNode): ReactNode {
   switch (node.type) {
     case "stack": {
@@ -19,9 +16,9 @@ export function renderLayout(node: LayoutNode): ReactNode {
     }
 
     default: {
-      // Exhaustiveness check
-      const _exhaustive: never = node;
-      throw new Error(`Unhandled layout node: ${_exhaustive}`);
+      // 👇 correct exhaustiveness check
+      const _exhaustiveCheck: never = node;
+      return _exhaustiveCheck;
     }
   }
 }

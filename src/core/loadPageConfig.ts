@@ -1,10 +1,13 @@
-import type { PageConfig } from "../schema/page.types";
+import { PageSchema } from "../schema/page.schema";
+import type { PageConfig } from "../schema/page.schema";
 
-/**
- * Loads a page config from untrusted input.
- * Validation will be added in Phase 2.2.
- */
 export function loadPageConfig(raw: unknown): PageConfig {
-  // ❗ Temporary unsafe cast — intentional for Phase 2.1
-  return raw as PageConfig;
+  const result = PageSchema.safeParse(raw);
+
+  if (!result.success) {
+    console.error("Invalid page configuration", result.error.format());
+    throw new Error("Page config validation failed");
+  }
+
+  return result.data;
 }
