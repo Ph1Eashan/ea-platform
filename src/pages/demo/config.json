@@ -1,0 +1,14 @@
+{
+  "page": {
+    "title": "EA Platform Demo (JSON)"
+  },
+  "layout": {
+    "type": "stack",
+    "children": [
+      {
+        "type": "widget",
+        "widget": "text"
+      }
+    ]
+  }
+}

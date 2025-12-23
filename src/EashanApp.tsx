@@ -1,11 +1,16 @@
 import { renderLayout } from "./layout/layoutEngine";
-import { demoPage } from "./pages/demo/page";
+import { loadPageConfig } from "./core/loadPageConfig";
+
+// Vite supports JSON imports
+import rawConfig from "./pages/demo/config.json";
 
 export function EashanApp() {
+  const pageConfig = loadPageConfig(rawConfig);
+
   return (
     <div>
-      <h1>{demoPage.page.title}</h1>
-      {renderLayout(demoPage.layout)}
+      <h1>{pageConfig.page.title}</h1>
+      {renderLayout(pageConfig.layout)}
     </div>
   );
 }
